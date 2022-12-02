@@ -60,6 +60,10 @@ const mutations = {
       }
     });
   },
+
+  onAllDelete(state) {
+    state.todoItems = [];
+  },
 };
 
 // actions
@@ -101,6 +105,11 @@ const actions = {
   done({ commit, dispath }, index) {
     console.log("done!");
     commit("onDone", index);
+  },
+
+  allDelete({ commit, dispatch }) {
+    console.log("All Delete!");
+    commit("onAllDelete");
   },
 };
 export default {
