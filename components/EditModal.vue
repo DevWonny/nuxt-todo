@@ -27,10 +27,6 @@ export default {
     ...mapState(["editValue"]),
   },
 
-  mounted() {
-    console.log(this.todo);
-  },
-
   methods: {
     ...mapActions(["edit", "updateValue"]),
 

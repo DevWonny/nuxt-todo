@@ -1,7 +1,13 @@
 <template>
   <div>
     <Input @add="onAdd"></Input>
-    <List :list="todoItems"></List>
+    <List
+      :list="todoItems"
+      @delete="onDelete"
+      @editClose="onCloseModal"
+      @editClick="onEditClick"
+      @done="onDoneClick"
+    ></List>
     <Footer @allDelete="onAllDelete" :list="todoItems"></Footer>
   </div>
 </template>
@@ -20,11 +26,20 @@ export default {
     List,
     Footer,
   },
+
   computed: {
-    ...mapState(["todoItems"]),
+    ...mapState(["todoItems", "editValue"]),
   },
+
   methods: {
-    ...mapActions(["push", "allDelete"]),
+    ...mapActions([
+      "push",
+      "allDelete",
+      "remove",
+      "editModal",
+      "editClose",
+      "done",
+    ]),
     onAdd(value) {
       // this.push({ value: this.listItem, done: false, isEdit: false });
       this.push({
@@ -36,6 +51,26 @@ export default {
 
     onAllDelete() {
       this.allDelete();
+    },
+
+    onDelete(item) {
+      let index = this.todoItems.findIndex((el) => el.value === item.value);
+      this.remove(index);
+    },
+
+    onCloseModal(item) {
+      let index = this.todoItems.findIndex((el) => el.value === item.value);
+      this.editClose(index);
+    },
+
+    onEditClick(item) {
+      let index = this.todoItems.findIndex((el) => el.value === item.value);
+      this.editModal(index);
+    },
+
+    onDoneClick(item) {
+      let index = this.todoItems.findIndex((el) => el.value === item.value);
+      this.done(index);
     },
   },
 };

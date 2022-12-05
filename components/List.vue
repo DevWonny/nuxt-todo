@@ -8,6 +8,7 @@
         <button class="complate_button" @click="onDoneClick(todo)">
           {{ todo.done ? "Cancel" : "Complate" }}
         </button>
+
         <EditModal
           v-if="todo.isEdit"
           :isEditModal="isEditModal"
@@ -20,10 +21,7 @@
 </template>
 
 <script>
-// edit
-import { createNamespacedHelpers } from "vuex";
 import EditModal from "./EditModal.vue";
-const { mapState, mapActions } = createNamespacedHelpers("main");
 
 export default {
   props: {
@@ -31,10 +29,6 @@ export default {
   },
   components: {
     EditModal,
-  },
-
-  computed: {
-    ...mapState(["todoItems", "editValue"]),
   },
 
   data() {
@@ -45,26 +39,20 @@ export default {
   },
 
   methods: {
-    ...mapActions(["remove", "edit", "editModal", "editClose", "done"]),
-
     onDelete(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.remove(index);
+      this.$emit("delete", item);
     },
 
     onCloseModal(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.editClose(index);
+      this.$emit("editClose", item);
     },
 
     onEditClick(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.editModal(index);
+      this.$emit("editClick", item);
     },
 
     onDoneClick(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.done(index);
+      this.$emit("done", item);
     },
   },
 };
