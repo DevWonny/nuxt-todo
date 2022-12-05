@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import Input from "../components/Input.vue";
-import List from "../components/List.vue";
-import Footer from "../components/Footer.vue";
+import Input from "@/components/Input.vue";
+import List from "@/components/List.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
