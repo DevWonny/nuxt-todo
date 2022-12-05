@@ -7,22 +7,15 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("main");
-
 export default {
-  computed: {
-    ...mapState(["todoItems"]),
-  },
   data() {
     return {
       listItem: "",
     };
   },
   methods: {
-    ...mapActions(["push"]),
     onAdd() {
-      this.push({ value: this.listItem, done: false, isEdit: false });
+      this.$emit("add", this.listItem);
       this.listItem = "";
     },
   },

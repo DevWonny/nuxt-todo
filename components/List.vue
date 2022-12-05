@@ -1,7 +1,7 @@
 <template>
   <div class="list_wrap">
     <ul>
-      <li v-for="todo in todoItems" :key="todo.index">
+      <li v-for="todo in list" :key="todo.index">
         {{ todo.done ? "Complate" : todo.value }}
         <button class="delete_button" @click="onDelete(todo)">Delete</button>
         <button class="edit_button" @click="onEditClick(todo)">Edit</button>
@@ -26,6 +26,9 @@ import EditModal from "./EditModal.vue";
 const { mapState, mapActions } = createNamespacedHelpers("main");
 
 export default {
+  props: {
+    list: { type: Array, default: () => [] },
+  },
   components: {
     EditModal,
   },

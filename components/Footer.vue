@@ -1,23 +1,18 @@
 <template>
-  <div class="footer_wrap" v-if="todoItems.length > 0">
+  <div class="footer_wrap" v-if="list.length > 0">
     <button class="all_delete_button" @click="onAllDelete">All Delete</button>
   </div>
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("main");
-
 export default {
-  computed: {
-    ...mapState(["todoItems"]),
+  props: {
+    list: { type: Array, default: () => [] },
   },
 
   methods: {
-    ...mapActions(["allDelete"]),
-
     onAllDelete() {
-      this.allDelete();
+      this.$emit("allDelete");
     },
   },
 };
