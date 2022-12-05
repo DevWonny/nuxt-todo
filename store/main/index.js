@@ -112,6 +112,7 @@ const actions = {
     commit("onAllDelete");
   },
 };
+
 export default {
   namespaced: true,
   state,

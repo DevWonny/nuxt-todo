@@ -17,5 +17,9 @@ export default {
     List,
     Footer,
   },
+
+  created() {
+    console.log(this.$route);
+  },
 };
 </script>
