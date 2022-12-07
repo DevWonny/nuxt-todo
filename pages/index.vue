@@ -1,14 +1,15 @@
 <template>
   <div>
-    <Input @add="onAdd"></Input>
+    <Input @add="onAdd" />
     <List
       :list="todoItems"
       @delete="onDelete"
       @editClose="onCloseModal"
       @editClick="onEditClick"
       @done="onDoneClick"
-    ></List>
-    <Footer @allDelete="onAllDelete" :list="todoItems"></Footer>
+    >
+    </List>
+    <Footer @allDelete="onAllDelete" :list="todoItems" />
   </div>
 </template>
 
@@ -25,7 +26,6 @@ const store = useStore();
 const todoItems = computed(() => store.state.main.todoItems);
 const editValue = computed(() => store.state.main.editValue);
 
-console.log(todoItems);
 // method
 const onAdd = (value) => {
   store.dispatch("main/push", { value, done: false, isEdit: false });
@@ -41,6 +41,7 @@ const onDelete = (item) => {
 };
 
 const onCloseModal = (item) => {
+  console.log(item);
   let index = todoItems.value.findIndex((el) => el.value === item.value);
   store.dispatch("main/editClose", index);
 };

@@ -21,7 +21,7 @@ import { computed, useStore } from "@nuxtjs/composition-api";
 const store = useStore();
 
 const editValue = computed(() => store.state.main.editValue);
-const props = defineProps(["todo"]);
+const props = defineProps(["item"]);
 const emit = defineEmits(["close"]);
 
 // methods
@@ -30,7 +30,7 @@ const onUpdateValue = (e) => {
 };
 
 const onEdit = () => {
-  store.dispatch("main/edit", props.todo);
+  store.dispatch("main/edit", props.item);
   emit("close");
 };
 
