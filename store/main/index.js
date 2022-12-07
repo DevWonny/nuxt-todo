@@ -1,6 +1,6 @@
 const state = () => ({
   todoItems: [],
-  editValue: "edit",
+  editValue: "",
 });
 
 // getters
@@ -31,7 +31,7 @@ const mutations = {
       return;
     }
     payload.value = state.editValue;
-    state.editValue = "edit";
+    state.editValue = "";
   },
 
   // edit value 수정
@@ -40,7 +40,7 @@ const mutations = {
       state.editValue = "";
       return;
     }
-    state.editValue = text.target.value;
+    state.editValue = text;
   },
 
   // edit modal

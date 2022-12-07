@@ -6,7 +6,7 @@
       type="text"
       class="edit_modal_input"
       :value="editValue"
-      @input="updateValue"
+      @input="onUpdateValue"
     />
 
     <div class="button_wrap">
@@ -16,38 +16,27 @@
   </div>
 </template>
 
-<script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions, mapGetters } = createNamespacedHelpers("main");
+<script setup>
+import { computed, useStore } from "@nuxtjs/composition-api";
+const store = useStore();
 
-export default {
-  props: ["todo"],
+const editValue = computed(() => store.state.main.editValue);
+const props = defineProps(["todo"]);
+const emit = defineEmits(["close"]);
 
-  computed: {
-    ...mapState(["editValue"]),
-    ...mapGetters(["getEditValue"]),
-  },
+// methods
+const onUpdateValue = (e) => {
+  store.dispatch("main/updateValue", e.target.value);
+};
 
-  mounted() {
-    console.log("getEditValue", this.getEditValue);
-  },
-  methods: {
-    ...mapActions(["edit", "updateValue"]),
+const onEdit = () => {
+  store.dispatch("main/edit", props.todo);
+  emit("close");
+};
 
-    onUpdateValue(e) {
-      this.updateValue(e.target.value);
-    },
-
-    onEdit() {
-      this.edit(this.todo);
-      this.$emit("close");
-    },
-
-    onClose() {
-      this.updateValue("");
-      this.$emit("close");
-    },
-  },
+const onClose = () => {
+  store.dispatch("main/updateValue", "");
+  emit("close");
 };
 </script>
 

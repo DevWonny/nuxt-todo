@@ -8,7 +8,6 @@
 
 <script setup>
 import { ref } from "vue";
-
 const listItem = ref("");
 const emit = defineEmits(["add"]);
 
