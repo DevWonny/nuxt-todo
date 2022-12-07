@@ -12,66 +12,47 @@
   </div>
 </template>
 
-<script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("main");
-
+<script setup>
 import Input from "@/components/Input.vue";
 import List from "@/components/List.vue";
 import Footer from "@/components/Footer.vue";
 
-export default {
-  components: {
-    Input,
-    List,
-    Footer,
-  },
+import { computed, useStore } from "@nuxtjs/composition-api";
 
-  computed: {
-    ...mapState(["todoItems", "editValue"]),
-  },
+const store = useStore();
 
-  methods: {
-    ...mapActions([
-      "push",
-      "allDelete",
-      "remove",
-      "editModal",
-      "editClose",
-      "done",
-    ]),
-    onAdd(value) {
-      // this.push({ value: this.listItem, done: false, isEdit: false });
-      this.push({
-        value,
-        done: false,
-        isEdit: false,
-      });
-    },
+// stort state
+const todoItems = computed(() => store.state.main.todoItems);
+const editValue = computed(() => store.state.main.editValue);
 
-    onAllDelete() {
-      this.allDelete();
-    },
+console.log(todoItems);
+// method
+const onAdd = (value) => {
+  store.dispatch("main/push", { value, done: false, isEdit: false });
+};
 
-    onDelete(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.remove(index);
-    },
+const onAllDelete = () => {
+  store.dispatch("main/allDelete");
+};
 
-    onCloseModal(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.editClose(index);
-    },
+const onDelete = (item) => {
+  let index = todoItems.value.findIndex((el) => el.value === item.value);
+  store.dispatch("main/remove", index);
+};
 
-    onEditClick(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.editModal(index);
-    },
+const onCloseModal = (item) => {
+  let index = todoItems.value.findIndex((el) => el.value === item.value);
+  store.dispatch("main/editClose", index);
+};
 
-    onDoneClick(item) {
-      let index = this.todoItems.findIndex((el) => el.value === item.value);
-      this.done(index);
-    },
-  },
+const onEditClick = (item) => {
+  let index = todoItems.value.findIndex((el) => el.value === item.value);
+  store.dispatch("main/editModal", index);
+};
+
+const onDoneClick = (item) => {
+  console.log(item);
+  let index = todoItems.value.findIndex((el) => el.value === item.value);
+  store.dispatch("main/done", index);
 };
 </script>
