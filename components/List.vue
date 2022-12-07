@@ -9,7 +9,7 @@
           {{ todo.done ? "Cancel" : "Complate" }}
         </button>
 
-        <EditModal
+        <edit-modal
           v-if="todo.isEdit"
           :isEditModal="isEditModal"
           :todo="todo"
@@ -20,41 +20,25 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import EditModal from "./EditModal.vue";
 
-export default {
-  props: {
-    list: { type: Array, default: () => [] },
-  },
-  components: {
-    EditModal,
-  },
+const props = defineProps({ list: { type: Array, default: () => [] } });
+const emits = defineEmits(["delete", "editClose", "editClick", "done"]);
+const isEditModal = false;
+const index = 0;
 
-  data() {
-    return {
-      isEditModal: false,
-      index: 0,
-    };
-  },
-
-  methods: {
-    onDelete(item) {
-      this.$emit("delete", item);
-    },
-
-    onCloseModal(item) {
-      this.$emit("editClose", item);
-    },
-
-    onEditClick(item) {
-      this.$emit("editClick", item);
-    },
-
-    onDoneClick(item) {
-      this.$emit("done", item);
-    },
-  },
+const onDelete = (item) => {
+  emits("delete", item);
+};
+const onCloseModal = (item) => {
+  emits("editClose", item);
+};
+const onEditClick = (item) => {
+  emits("editClick", item);
+};
+const onDoneClick = (item) => {
+  emits("done", item);
 };
 </script>
 

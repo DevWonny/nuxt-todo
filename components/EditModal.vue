@@ -18,15 +18,19 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("main");
+const { mapState, mapActions, mapGetters } = createNamespacedHelpers("main");
 
 export default {
   props: ["todo"],
 
   computed: {
     ...mapState(["editValue"]),
+    ...mapGetters(["getEditValue"]),
   },
 
+  mounted() {
+    console.log("getEditValue", this.getEditValue);
+  },
   methods: {
     ...mapActions(["edit", "updateValue"]),
 

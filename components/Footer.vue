@@ -4,17 +4,12 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    list: { type: Array, default: () => [] },
-  },
+<script setup>
+const props = defineProps({ list: { type: Array, default: () => [] } });
+const emit = defineEmits(["allDelete"]);
 
-  methods: {
-    onAllDelete() {
-      this.$emit("allDelete");
-    },
-  },
+const onAllDelete = () => {
+  emit("allDelete");
 };
 </script>
 

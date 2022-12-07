@@ -6,19 +6,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      listItem: "",
-    };
-  },
-  methods: {
-    onAdd() {
-      this.$emit("add", this.listItem);
-      this.listItem = "";
-    },
-  },
+<script setup>
+import { ref } from "vue";
+
+const listItem = ref("");
+const emit = defineEmits(["add"]);
+
+const onAdd = () => {
+  emit("add", listItem.value);
+  listItem.value = "";
 };
 </script>
 

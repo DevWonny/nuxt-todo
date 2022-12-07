@@ -1,7 +1,14 @@
 const state = () => ({
   todoItems: [],
-  editValue: "",
+  editValue: "edit",
 });
+
+// getters
+const getters = {
+  getEditValue(state) {
+    return state.editValue;
+  },
+};
 
 // mutaions
 const mutations = {
@@ -24,7 +31,7 @@ const mutations = {
       return;
     }
     payload.value = state.editValue;
-    state.editValue = "";
+    state.editValue = "edit";
   },
 
   // edit value 수정
@@ -118,4 +125,5 @@ export default {
   state,
   mutations,
   actions,
+  getters,
 };
