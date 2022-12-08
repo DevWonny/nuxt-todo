@@ -3,11 +3,13 @@
     <ul>
       <li v-for="item in list" :key="item.length">
         {{ item.done ? "Complate" : item.value }}
-        <button class="complate_button" @click="onDoneClick(item)">
-          {{ item.done ? "Cancle" : "Complate" }}
-        </button>
-        <button class="delete_button" @click="onDelete(item)">Delete</button>
-        <button class="edit_button" @click="onEditClick(item)">Edit</button>
+        <div v-if="routeName === 'index'">
+          <button class="complate_button" @click="onDoneClick(item)">
+            {{ item.done ? "Cancle" : "Complate" }}
+          </button>
+          <button class="delete_button" @click="onDelete(item)">Delete</button>
+          <button class="edit_button" @click="onEditClick(item)">Edit</button>
+        </div>
 
         <edit-modal
           v-if="item.isEdit"
@@ -22,10 +24,13 @@
 </template>
 
 <script setup>
+import { useRoute } from "@nuxtjs/composition-api";
 import EditModal from "./EditModal.vue";
 const props = defineProps({ list: { type: Array, default: () => [] } });
 const emits = defineEmits(["delete", "editClose", "editClick", "done"]);
 const isEditModal = false;
+const route = useRoute();
+const routeName = route.value.name;
 
 // methods
 const onDelete = (item) => {

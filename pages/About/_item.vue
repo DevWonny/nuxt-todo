@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Test - {{ dynamic }}</h1>
+    <h1>Title - {{ dynamic }}</h1>
     <button type="button" @click="onNext">next</button>
     <button type="button" @click="onPrev">prev</button>
   </div>

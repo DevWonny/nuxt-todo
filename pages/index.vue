@@ -10,6 +10,7 @@
     >
     </List>
     <Footer @allDelete="onAllDelete" :list="todoItems" />
+    <button @click="onMove">About</button>
   </div>
 </template>
 
@@ -18,15 +19,21 @@ import Input from "@/components/Input.vue";
 import List from "@/components/List.vue";
 import Footer from "@/components/Footer.vue";
 
-import { computed, useStore } from "@nuxtjs/composition-api";
+import { computed, useStore, useRouter } from "@nuxtjs/composition-api";
 
+// store, router
 const store = useStore();
+const router = useRouter();
 
-// stort state
+// state
 const todoItems = computed(() => store.state.main.todoItems);
 const editValue = computed(() => store.state.main.editValue);
 
 // method
+const onMove = () => {
+  router.push("/about");
+};
+
 const onAdd = (value) => {
   store.dispatch("main/push", { value, done: false, isEdit: false });
 };
