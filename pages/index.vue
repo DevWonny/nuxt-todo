@@ -11,6 +11,8 @@
     </List>
     <Footer @allDelete="onAllDelete" :list="todoItems" />
     <button @click="onMove">About</button>
+    <button @click="onMoveChild">nuxt-child Test</button>
+    <button @click="test">Click</button>
   </div>
 </template>
 
@@ -19,19 +21,35 @@ import Input from "@/components/Input.vue";
 import List from "@/components/List.vue";
 import Footer from "@/components/Footer.vue";
 
-import { computed, useStore, useRouter } from "@nuxtjs/composition-api";
+import {
+  computed,
+  useStore,
+  useRouter,
+  useContext,
+} from "@nuxtjs/composition-api";
 
 // store, router
 const store = useStore();
 const router = useRouter();
+const { $axios } = useContext();
 
+console.log(useContext());
 // state
 const todoItems = computed(() => store.state.main.todoItems);
 const editValue = computed(() => store.state.main.editValue);
 
 // method
+const test = async () => {
+  const res = await $axios.$get("https://jsonplaceholder.typicode.com/todos/1");
+
+  console.log(res);
+};
 const onMove = () => {
   router.push("/about");
+};
+
+const onMoveChild = () => {
+  router.push("/viewPage");
 };
 
 const onAdd = (value) => {

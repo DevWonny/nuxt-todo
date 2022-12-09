@@ -26,14 +26,14 @@ export default {
   plugins: [],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ["@nuxtjs/composition-api/module"],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ["@nuxtjs/axios"],
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  // Build Configuration: https://go.nuxtjs.dev/config-build
 };
